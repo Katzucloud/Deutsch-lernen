@@ -296,6 +296,7 @@ defaults = {
     "user_answer": "",
     "loading": False,
     "api_error": False,
+    "input_key": 0,
 }
 for k, v in defaults.items():
     if k not in st.session_state:
@@ -322,6 +323,7 @@ def reset_answer_state():
     st.session_state.feedback = None
     st.session_state.answer_revealed = False
     st.session_state.user_answer = ""
+    st.session_state.input_key += 1
 
 def fetch_new_phrase():
     model = get_gemini_client()
@@ -453,7 +455,7 @@ user_answer = st.text_area(
     placeholder=placeholder,
     height=80,
     label_visibility="collapsed",
-    key="answer_box"
+    key=f"answer_box_{st.session_state.input_key}"
 )
 st.session_state.user_answer = user_answer
 
