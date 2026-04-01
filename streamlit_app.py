@@ -15,91 +15,226 @@ st.set_page_config(
 # ── Dark theme CSS ────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap');
 
+/* ── Base ── */
 html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
-    background-color: #0e0e12 !important;
-    color: #e8e6e0 !important;
-    font-family: 'IBM Plex Sans', sans-serif;
+    background-color: #1a1a1a !important;
+    color: #ececec !important;
+    font-family: 'Inter', sans-serif !important;
 }
 [data-testid="stSidebar"] {
-    background-color: #13131a !important;
-    border-right: 1px solid #2a2a3a;
+    background-color: #141414 !important;
+    border-right: 1px solid #2e2e2e;
 }
-h1, h2, h3 { font-family: 'Playfair Display', serif !important; color: #f0ede6 !important; }
+h1 {
+    font-family: 'DM Serif Display', serif !important;
+    color: #f5f5f0 !important;
+    font-size: 42px !important;
+    letter-spacing: -0.5px !important;
+}
+h2, h3 {
+    font-family: 'Inter', sans-serif !important;
+    color: #e0e0e0 !important;
+}
 
+/* ── Phrase card — Claude warm amber accent ── */
 .phrase-card {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border: 1px solid #c9a84c44;
-    border-left: 4px solid #c9a84c;
-    border-radius: 12px;
-    padding: 32px 36px;
-    margin: 16px 0 24px 0;
+    background: #212121;
+    border: 1px solid #333;
+    border-left: 4px solid #d4956a;
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin: 14px 0 20px 0;
 }
 .phrase-label {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-    color: #c9a84c; margin-bottom: 12px;
+    color: #d4956a; margin-bottom: 14px;
 }
 .phrase-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px; color: #f5f0e8; line-height: 1.4; margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 22px; font-weight: 500;
+    color: #f0ede8; line-height: 1.55; margin: 0;
 }
 .phrase-meta {
-    font-size: 11px; color: #55556a; margin-top: 10px;
-    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: #666; margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
 }
-.stButton > button {
-    background: #1e1e2e !important; color: #c9a84c !important;
-    border: 1px solid #c9a84c55 !important; border-radius: 8px !important;
-    font-family: 'IBM Plex Mono', monospace !important;
-    font-size: 12px !important; letter-spacing: 1.5px !important;
-    padding: 10px 22px !important; transition: all 0.2s ease !important;
+.grammar-tag {
+    display: inline-block;
+    background: #d4956a18; color: #d4956a;
+    border: 1px solid #d4956a33;
+    border-radius: 6px; padding: 2px 10px;
+    font-size: 11px; font-family: 'JetBrains Mono', monospace;
+    margin-right: 6px;
 }
-.stButton > button:hover {
-    background: #c9a84c !important; color: #0e0e12 !important;
-    border-color: #c9a84c !important;
+.topic-tag {
+    display: inline-block;
+    background: #7eb8d418; color: #7eb8d4;
+    border: 1px solid #7eb8d433;
+    border-radius: 6px; padding: 2px 10px;
+    font-size: 11px; font-family: 'JetBrains Mono', monospace;
 }
-.stTextArea textarea, .stTextInput input {
-    background-color: #1a1a2e !important; color: #e8e6e0 !important;
-    border: 1px solid #2a2a4a !important; border-radius: 8px !important;
-    font-family: 'IBM Plex Sans', sans-serif !important; font-size: 15px !important;
-}
-.stTextArea textarea:focus { border-color: #c9a84c !important; box-shadow: 0 0 0 2px #c9a84c22 !important; }
 
+/* ── Mode badge ── */
+.mode-badge {
+    display: inline-block;
+    background: #2a2a2a; color: #aaa;
+    border: 1px solid #3a3a3a; border-radius: 20px;
+    padding: 4px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1px; margin-bottom: 8px;
+}
+
+/* ── Buttons — each with its own pastel colour ── */
+/* New Phrase — pastel teal */
+div[data-testid="column"]:nth-of-type(1) .stButton > button {
+    background: #1e2e2c !important;
+    color: #80cbc4 !important;
+    border: 1px solid #80cbc455 !important;
+    border-radius: 10px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important; font-weight: 500 !important;
+    padding: 10px 20px !important;
+    transition: all 0.18s ease !important;
+}
+div[data-testid="column"]:nth-of-type(1) .stButton > button:hover {
+    background: #80cbc4 !important; color: #0e1f1e !important;
+    border-color: #80cbc4 !important;
+}
+
+/* Flip — pastel lavender */
+div[data-testid="column"]:nth-of-type(2) .stButton > button {
+    background: #1f1e2e !important;
+    color: #b39ddb !important;
+    border: 1px solid #b39ddb55 !important;
+    border-radius: 10px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important; font-weight: 500 !important;
+    padding: 10px 20px !important;
+    transition: all 0.18s ease !important;
+}
+div[data-testid="column"]:nth-of-type(2) .stButton > button:hover {
+    background: #b39ddb !important; color: #1a1428 !important;
+    border-color: #b39ddb !important;
+}
+
+/* Check — pastel green */
+div[data-testid="column"]:nth-of-type(3) .stButton > button {
+    background: #1a2a1e !important;
+    color: #a5d6a7 !important;
+    border: 1px solid #a5d6a755 !important;
+    border-radius: 10px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important; font-weight: 500 !important;
+    padding: 10px 20px !important;
+    transition: all 0.18s ease !important;
+}
+div[data-testid="column"]:nth-of-type(3) .stButton > button:hover {
+    background: #a5d6a7 !important; color: #0e1f12 !important;
+    border-color: #a5d6a7 !important;
+}
+
+/* Reveal — pastel peach/amber */
+div[data-testid="column"]:nth-of-type(4) .stButton > button {
+    background: #2a2018 !important;
+    color: #ffcc80 !important;
+    border: 1px solid #ffcc8055 !important;
+    border-radius: 10px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important; font-weight: 500 !important;
+    padding: 10px 20px !important;
+    transition: all 0.18s ease !important;
+}
+div[data-testid="column"]:nth-of-type(4) .stButton > button:hover {
+    background: #ffcc80 !important; color: #1a1000 !important;
+    border-color: #ffcc80 !important;
+}
+
+/* Save — pastel rose */
+div[data-testid="column"]:nth-of-type(5) .stButton > button {
+    background: #2a1a1e !important;
+    color: #f48fb1 !important;
+    border: 1px solid #f48fb155 !important;
+    border-radius: 10px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important; font-weight: 500 !important;
+    padding: 10px 20px !important;
+    transition: all 0.18s ease !important;
+}
+div[data-testid="column"]:nth-of-type(5) .stButton > button:hover {
+    background: #f48fb1 !important; color: #1a000a !important;
+    border-color: #f48fb1 !important;
+}
+
+/* Clear notebook — muted red */
+[data-testid="stSidebar"] .stButton > button {
+    background: #2a1515 !important;
+    color: #ef9a9a !important;
+    border: 1px solid #ef9a9a44 !important;
+    border-radius: 8px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 12px !important;
+    padding: 8px 16px !important;
+    width: 100% !important;
+}
+[data-testid="stSidebar"] .stButton > button:hover {
+    background: #ef9a9a !important; color: #1a0000 !important;
+}
+
+/* ── Text input ── */
+.stTextArea textarea {
+    background-color: #212121 !important;
+    color: #ececec !important;
+    border: 1px solid #333 !important;
+    border-radius: 10px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+}
+.stTextArea textarea:focus {
+    border-color: #d4956a !important;
+    box-shadow: 0 0 0 2px #d4956a1a !important;
+}
+
+/* ── Feedback banners ── */
 .feedback-correct {
-    background: #0d2b1d; border-left: 4px solid #2ecc71; border-radius: 8px;
-    padding: 14px 18px; color: #7dffb3;
-    font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;
+    background: #152318; border-left: 4px solid #66bb6a; border-radius: 10px;
+    padding: 14px 18px; color: #a5d6a7;
+    font-family: 'Inter', sans-serif; font-size: 14px; margin: 10px 0;
 }
 .feedback-wrong {
-    background: #2b0d0d; border-left: 4px solid #e74c3c; border-radius: 8px;
-    padding: 14px 18px; color: #ff9999;
-    font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;
+    background: #231515; border-left: 4px solid #ef5350; border-radius: 10px;
+    padding: 14px 18px; color: #ef9a9a;
+    font-family: 'Inter', sans-serif; font-size: 14px; margin: 10px 0;
 }
 .feedback-reveal {
-    background: #1a1428; border-left: 4px solid #8855cc; border-radius: 8px;
-    padding: 14px 18px; color: #cc99ff;
-    font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;
+    background: #1e1828; border-left: 4px solid #ab47bc; border-radius: 10px;
+    padding: 14px 18px; color: #ce93d8;
+    font-family: 'Inter', sans-serif; font-size: 14px; margin: 10px 0;
 }
+
+/* ── Notebook entries ── */
 .notebook-entry {
-    background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 8px;
-    padding: 12px 16px; margin: 6px 0; font-size: 13px;
+    background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 10px;
+    padding: 12px 16px; margin: 6px 0;
 }
-.notebook-de { font-family: 'IBM Plex Mono', monospace; color: #c9a84c; font-weight: 500; }
-.notebook-en { color: #aaa8c0; font-size: 12px; margin-top: 2px; }
-.mode-badge {
-    display: inline-block; background: #c9a84c22; color: #c9a84c;
-    border: 1px solid #c9a84c55; border-radius: 20px;
-    padding: 3px 14px; font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; letter-spacing: 1px; margin-bottom: 6px;
+.notebook-de {
+    font-family: 'Inter', sans-serif; font-weight: 600;
+    color: #d4956a; font-size: 13px;
 }
+.notebook-en { color: #888; font-size: 12px; margin-top: 3px; font-family: 'Inter', sans-serif; }
+.notebook-note { color: #555; font-size: 11px; margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
+
+/* ── Misc ── */
 .loading-msg {
-    color: #666680; font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px; padding: 20px 0; text-align: center;
+    color: #555; font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; padding: 30px 0; text-align: center;
 }
-hr { border-color: #2a2a3a !important; }
-label { color: #aaa8c0 !important; font-size: 13px !important; }
+hr { border-color: #2e2e2e !important; }
+label { color: #888 !important; font-size: 13px !important; }
+p { color: #ececec !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -225,7 +360,7 @@ with st.sidebar:
             unsafe_allow_html=True
         )
         for entry in reversed(st.session_state.notebook):
-            note_html = f"<div style='color:#55556a; font-size:11px; margin-top:4px;'>📌 {entry['note']}</div>" if entry.get("note") else ""
+            note_html = f"<div class='notebook-note'>📌 {entry['note']}</div>" if entry.get("note") else ""
             st.markdown(f"""
             <div class="notebook-entry">
                 <div class="notebook-de">{entry['de']}</div>
@@ -297,13 +432,16 @@ else:
 topic_str = phrase.get("topic", "").title()
 grammar_note = phrase.get("grammar_note", "")
 
+grammar_html = f'<span class="grammar-tag">📌 {grammar_note}</span>' if grammar_note else ""
+topic_html = f'<span class="topic-tag">🏷 {topic_str}</span>'
+
 st.markdown(f'<div class="mode-badge">{mode}</div>', unsafe_allow_html=True)
 st.markdown(f"""
 <div class="phrase-card">
     <div class="phrase-label">{display_label}</div>
     <p class="phrase-text">{display_text}</p>
-    <div class="phrase-meta">
-        {'📌 ' + grammar_note + ' &nbsp;·&nbsp; ' if grammar_note else ''}🏷 {topic_str}
+    <div class="phrase-meta" style="margin-top:14px;">
+        {grammar_html}{topic_html}
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -319,8 +457,10 @@ user_answer = st.text_area(
 )
 st.session_state.user_answer = user_answer
 
-# Action buttons
-c1, c2, c3, c4 = st.columns([1, 1, 1, 3])
+# Action buttons — 5 columns so CSS nth-of-type targets work correctly
+# cols 1+2 = New Phrase & Flip (top row already rendered above)
+# cols 3+4+5 = Check, Reveal, Save
+c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 3])
 with c1:
     check_clicked = st.button("✓  Check")
 with c2:
